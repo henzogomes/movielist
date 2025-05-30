@@ -2,14 +2,7 @@ import fs from "fs";
 import csv from "csv-parser";
 import { database } from "../db/database";
 import { CSV_FILE_PATH } from "../lib/constants";
-
-interface CsvRow {
-  year: string;
-  title: string;
-  studios: string;
-  producers: string;
-  winner: string;
-}
+import { CsvRow } from "../types/producer.types";
 
 export function loadCsvData(): Promise<void> {
   return new Promise((resolve, reject) => {
