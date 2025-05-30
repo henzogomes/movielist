@@ -1,17 +1,11 @@
+import { ValidatedCsvRow } from "../schemas/csvSchema";
+
 export interface Movie {
   id: number;
   year: number;
   title: string;
   studios: string;
   winner: boolean;
-}
-
-export interface CsvRow {
-  year: string;
-  title: string;
-  studios: string;
-  producers: string;
-  winner: string;
 }
 
 export interface ProducerInterval {
@@ -29,4 +23,12 @@ export interface ProducerIntervalResponse {
 export interface ProducerWinData {
   producer: string;
   year: number;
+}
+
+export interface CsvValidationResult {
+  isValid: boolean;
+  errors: string[];
+  rowsProcessed: number;
+  rowsSkipped: number;
+  validRows: ValidatedCsvRow[];
 }

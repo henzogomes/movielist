@@ -1,15 +1,20 @@
 import sqlite3 from "sqlite3";
+import { database } from "../db/database";
 import {
   ProducerWinData,
   ProducerInterval,
   ProducerIntervalResponse,
 } from "../types/producer.types";
 
-export class ProducerService {
-  static async getProducerIntervals(
-    db: sqlite3.Database
-  ): Promise<ProducerIntervalResponse> {
+export class ProducerAnalyticsService {
+  private static getDb(): sqlite3.Database {
+    return database.getDatabase();
+  }
+
+  static async getProducerIntervals(): Promise<ProducerIntervalResponse> {
     return new Promise((resolve, reject) => {
+      const db = this.getDb();
+
       const query = `
         SELECT
           p.name as producer,
@@ -36,7 +41,7 @@ export class ProducerService {
   private static calculateProducerIntervals(
     data: ProducerWinData[]
   ): ProducerIntervalResponse {
-    // agrupa anos por produtor
+    //group years by producer
     const producerWins: { [key: string]: number[] } = {};
 
     data.forEach((row) => {
@@ -46,7 +51,7 @@ export class ProducerService {
       producerWins[row.producer].push(row.year);
     });
 
-    //calcula intervalos para produtores com mais de uma vitoria
+    // calculate intervals for producers with more than one win
     const allIntervals: ProducerInterval[] = [];
 
     Object.keys(producerWins).forEach((producer) => {
@@ -69,7 +74,7 @@ export class ProducerService {
       return { min: [], max: [] };
     }
 
-    // encontra os intervalos min e max
+    // find min and max intervals
     const minInterval = Math.min(...allIntervals.map((i) => i.interval));
     const maxInterval = Math.max(...allIntervals.map((i) => i.interval));
 

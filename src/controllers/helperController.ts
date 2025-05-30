@@ -3,7 +3,7 @@ import { database } from "../db/database";
 import { Movie } from "../types/producer.types";
 
 export class HelperController {
-  static getMovies(req: Request, res: Response): void {
+  static getMovies(_: Request, res: Response): void {
     const db = database.getDatabase();
 
     db.all("SELECT * FROM movies LIMIT 10", (err, rows: Movie[]) => {
@@ -22,7 +22,7 @@ export class HelperController {
     });
   }
 
-  static getProducers(req: Request, res: Response): void {
+  static getProducers(_: Request, res: Response): void {
     const db = database.getDatabase();
 
     db.all("SELECT * FROM producers LIMIT 10", (err, rows) => {
@@ -41,7 +41,7 @@ export class HelperController {
     });
   }
 
-  static getMovieProducers(req: Request, res: Response): void {
+  static getMovieProducers(_: Request, res: Response): void {
     const db = database.getDatabase();
 
     const query = `

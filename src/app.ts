@@ -5,14 +5,13 @@ import routes from "./routes";
 
 const app = express();
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Carregar dados do CSV na inicialização
+// load the csv data into the in-memory database at application startup
 loadCsvData().catch(console.error);
 
-// Usar todas as rotas organizadas
+// routes
 app.use(routes);
 
 export default app;

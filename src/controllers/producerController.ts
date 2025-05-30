@@ -1,16 +1,10 @@
 import { Request, Response } from "express";
-import { database } from "../db/database";
-import { ProducerService } from "../services/producerService";
+import { ProducerAnalyticsService } from "../services/producerAnalyticsService";
 
 export class ProducerController {
-  static async getProducerIntervals(
-    req: Request,
-    res: Response
-  ): Promise<void> {
+  static async getProducerIntervals(_: Request, res: Response): Promise<void> {
     try {
-      const db = database.getDatabase();
-      const intervals = await ProducerService.getProducerIntervals(db);
-
+      const intervals = await ProducerAnalyticsService.getProducerIntervals();
       res.json(intervals);
     } catch (error) {
       res.status(500).json({

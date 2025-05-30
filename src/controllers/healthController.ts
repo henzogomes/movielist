@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { database } from "../db/database";
 
 export class HealthController {
-  static getHealth(req: Request, res: Response): void {
+  static getHealth(_: Request, res: Response): void {
     const db = database.getDatabase();
 
     db.get("SELECT datetime('now') as current_time", (err, row: any) => {
