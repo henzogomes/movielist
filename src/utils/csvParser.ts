@@ -1,15 +1,17 @@
 import fs from "fs";
 import csv from "csv-parser";
-import { CSV_FILE_PATH } from "../lib/constants";
+import { CSV_ORIGINAL } from "../lib/constants";
 import { csvHeaderSchema, csvRowSchema } from "../schemas/csvSchema";
 import { CsvValidationResult } from "../types/producer.types";
 import { MovieService } from "../services/movieService";
 
-export function loadCsvData(): Promise<void> {
+export function loadCsvData(filePath?: string): Promise<void> {
+  const csvPath = filePath || CSV_ORIGINAL;
+
   return new Promise((resolve, reject) => {
     // check if the csv file exists
-    if (!fs.existsSync(CSV_FILE_PATH)) {
-      reject(new Error(`CSV file not found: ${CSV_FILE_PATH}`));
+    if (!fs.existsSync(csvPath)) {
+      reject(new Error(`CSV file not found: ${csvPath}`));
       return;
     }
 
@@ -24,8 +26,10 @@ export function loadCsvData(): Promise<void> {
     let headersValidated = false;
     const allRows: any[] = [];
 
-    // start reading the cvs file
-    fs.createReadStream(CSV_FILE_PATH)
+    console.log(`Loading CSV data from: ${csvPath}`);
+
+    // start reading the csv file
+    fs.createReadStream(csvPath)
       .pipe(csv({ separator: ";" }))
       .on("headers", (headers: string[]) => {
         // validate headers with zod schema
@@ -108,7 +112,9 @@ export function loadCsvData(): Promise<void> {
         try {
           // insert data
           await MovieService.insertMoviesFromCsv(validationResult.validRows);
-          console.log("CSV data loaded and validated successfully");
+          console.log(
+            `CSV data loaded and validated successfully from: ${csvPath}`
+          );
           resolve();
         } catch (error) {
           console.error("Error inserting data to database:", error);

@@ -6,7 +6,7 @@ import {
   ProducerIntervalResponse,
 } from "../types/producer.types";
 
-export class ProducerAnalyticsService {
+export class ProducerIntervalService {
   private static getDb(): sqlite3.Database {
     return database.getDatabase();
   }
