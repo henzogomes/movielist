@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { loadCsvData } from "./utils/csvParser";
 import routes from "./routes";
+import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
 
 export async function createApp(
   csvFilePath?: string
@@ -17,6 +18,10 @@ export async function createApp(
 
   // routes
   app.use(routes);
+
+  // Error handling
+  app.use(notFoundHandler);
+  app.use(errorHandler);
 
   return app;
 }

@@ -6,7 +6,7 @@ export class HelperController {
   static getMovies(_: Request, res: Response): void {
     const db = database.getDatabase();
 
-    db.all("SELECT * FROM movies LIMIT 10", (err, rows: Movie[]) => {
+    db.all("SELECT * FROM movies", (err, rows: Movie[]) => {
       if (err) {
         res.status(500).json({
           message: "Error fetching movies",
@@ -25,7 +25,7 @@ export class HelperController {
   static getProducers(_: Request, res: Response): void {
     const db = database.getDatabase();
 
-    db.all("SELECT * FROM producers LIMIT 10", (err, rows) => {
+    db.all("SELECT * FROM producers", (err, rows) => {
       if (err) {
         res.status(500).json({
           message: "Error fetching producers",
@@ -54,7 +54,6 @@ export class HelperController {
       JOIN producers p ON mp.producer_id = p.id
       WHERE m.winner = 1
       ORDER BY m.year
-      LIMIT 10
     `;
 
     db.all(query, (err, rows) => {
