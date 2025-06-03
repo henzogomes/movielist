@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { database } from "../db/database";
 import { Movie, Producer } from "../types/producer.types";
+import { PaginationHelper, PaginationParams } from "../utils/pagination";
 
 interface MovieProducerRelationship {
   title: string;
@@ -9,72 +10,87 @@ interface MovieProducerRelationship {
 }
 
 export class HelperController {
-  static getMovies(_: Request, res: Response): void {
-    const db = database.getDatabase();
+  static async getMovies(req: Request, res: Response): Promise<void> {
+    try {
+      const db = database.getDatabase();
+      const pagination = PaginationHelper.parseParams(
+        req.query as PaginationParams
+      );
+      const baseQuery = "SELECT * FROM movies ORDER BY year, title";
 
-    db.all("SELECT * FROM movies", (err: Error | null, rows: Movie[]) => {
-      if (err) {
-        res.status(500).json({
-          message: "Error fetching movies",
-          error: err.message,
-        });
-      } else {
-        res.json({
-          message: "Movies fetched successfully",
-          count: rows.length,
-          movies: rows,
-        });
-      }
-    });
+      const response = await PaginationHelper.getPaginatedData<Movie>(
+        db,
+        baseQuery,
+        pagination,
+        "Movies fetched successfully"
+      );
+
+      res.json(response);
+    } catch (error) {
+      res.status(500).json({
+        message: "Error fetching movies",
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
   }
 
-  static getProducers(_: Request, res: Response): void {
-    const db = database.getDatabase();
+  static async getProducers(req: Request, res: Response): Promise<void> {
+    try {
+      const db = database.getDatabase();
+      const pagination = PaginationHelper.parseParams(
+        req.query as PaginationParams
+      );
+      const baseQuery = "SELECT * FROM producers ORDER BY name";
 
-    db.all("SELECT * FROM producers", (err: Error | null, rows: Producer[]) => {
-      if (err) {
-        res.status(500).json({
-          message: "Error fetching producers",
-          error: err.message,
-        });
-      } else {
-        res.json({
-          message: "Producers fetched successfully",
-          count: rows.length,
-          producers: rows,
-        });
-      }
-    });
+      const response = await PaginationHelper.getPaginatedData<Producer>(
+        db,
+        baseQuery,
+        pagination,
+        "Producers fetched successfully"
+      );
+
+      res.json(response);
+    } catch (error) {
+      res.status(500).json({
+        message: "Error fetching producers",
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
   }
 
-  static getMovieProducers(_: Request, res: Response): void {
-    const db = database.getDatabase();
+  static async getMovieProducers(req: Request, res: Response): Promise<void> {
+    try {
+      const db = database.getDatabase();
+      const pagination = PaginationHelper.parseParams(
+        req.query as PaginationParams
+      );
 
-    const query = `
-      SELECT
-        m.title,
-        m.year,
-        p.name as producer_name
-      FROM movies m
-      JOIN movie_producers mp ON m.id = mp.movie_id
-      JOIN producers p ON mp.producer_id = p.id
-      WHERE m.winner = 1
-      ORDER BY m.year
-    `;
+      const baseQuery = `
+        SELECT
+          m.title,
+          m.year,
+          p.name as producer_name
+        FROM movies m
+        JOIN movie_producers mp ON m.id = mp.movie_id
+        JOIN producers p ON mp.producer_id = p.id
+        WHERE m.winner = 1
+        ORDER BY m.year, m.title
+      `;
 
-    db.all(query, (err: Error | null, rows: MovieProducerRelationship[]) => {
-      if (err) {
-        res.status(500).json({
-          message: "Error fetching movie-producer relationships",
-          error: err.message,
-        });
-      } else {
-        res.json({
-          message: "Movie-producer relationships fetched successfully",
-          count: rows.length,
-          relationships: rows,
-        });
-      }
-    });
+      const response =
+        await PaginationHelper.getPaginatedData<MovieProducerRelationship>(
+          db,
+          baseQuery,
+          pagination,
+          "Movie-producer relationships fetched successfully"
+        );
+
+      res.json(response);
+    } catch (error) {
+      res.status(500).json({
+        message: "Error fetching movie-producer relationships",
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
   }
 }
