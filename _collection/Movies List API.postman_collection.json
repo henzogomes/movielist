@@ -1,0 +1,408 @@
+{
+	"info": {
+		"_postman_id": "156e896a-090b-4e54-a872-c0bf300f20f6",
+		"name": "Movies List API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8953379"
+	},
+	"item": [
+		{
+			"name": "DB Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/health",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "DB Health",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/health",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "113"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"71-t5mGDn+N1O5EzINx7zLM9pnmblg\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 31 May 2025 21:52:46 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"API is healthy\",\n    \"database\": \"SQLite in-memory database connected\",\n    \"currentTime\": \"2025-05-31 21:52:46\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Movies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/movies",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Movies",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/movies",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "978"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3d2-R37GAwXLAJAmL8KfRWBZki4bl/Q\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 31 May 2025 21:52:49 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Movies fetched successfully\",\n    \"count\": 10,\n    \"movies\": [\n        {\n            \"id\": 1,\n            \"year\": 1980,\n            \"title\": \"Can't Stop the Music\",\n            \"studios\": \"Associated Film Distribution\",\n            \"winner\": 1\n        },\n        {\n            \"id\": 2,\n            \"year\": 1980,\n            \"title\": \"Friday the 13th\",\n            \"studios\": \"Paramount Pictures\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 3,\n            \"year\": 1980,\n            \"title\": \"Cruising\",\n            \"studios\": \"Lorimar Productions, United Artists\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 4,\n            \"year\": 1980,\n            \"title\": \"Raise the Titanic\",\n            \"studios\": \"Associated Film Distribution\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 5,\n            \"year\": 1980,\n            \"title\": \"Saturn 3\",\n            \"studios\": \"Associated Film Distribution\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 6,\n            \"year\": 1980,\n            \"title\": \"Windows\",\n            \"studios\": \"United Artists\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 7,\n            \"year\": 1980,\n            \"title\": \"The Nude Bomb\",\n            \"studios\": \"Universal Studios\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 8,\n            \"year\": 1981,\n            \"title\": \"Mommie Dearest\",\n            \"studios\": \"Paramount Pictures\",\n            \"winner\": 1\n        },\n        {\n            \"id\": 9,\n            \"year\": 1981,\n            \"title\": \"Endless Love\",\n            \"studios\": \"Universal Studios, PolyGram\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 10,\n            \"year\": 1981,\n            \"title\": \"Heaven's Gate\",\n            \"studios\": \"United Artists\",\n            \"winner\": 0\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Movie Producers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/movie-producers",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"movie-producers"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Movie Producers",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/movie-producers",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movie-producers"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "820"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"334-u2CRYOirlgaQZ25BDykmvTv/ZiQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 31 May 2025 21:52:52 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Movie-producer relationships fetched successfully\",\n    \"count\": 10,\n    \"relationships\": [\n        {\n            \"title\": \"Can't Stop the Music\",\n            \"year\": 1980,\n            \"producer_name\": \"Allan Carr\"\n        },\n        {\n            \"title\": \"Mommie Dearest\",\n            \"year\": 1981,\n            \"producer_name\": \"Frank Yablans\"\n        },\n        {\n            \"title\": \"Inchon\",\n            \"year\": 1982,\n            \"producer_name\": \"Mitsuharu Ishii\"\n        },\n        {\n            \"title\": \"The Lonely Lady\",\n            \"year\": 1983,\n            \"producer_name\": \"Robert R. Weston\"\n        },\n        {\n            \"title\": \"Bolero\",\n            \"year\": 1984,\n            \"producer_name\": \"Bo Derek\"\n        },\n        {\n            \"title\": \"Rambo: First Blood Part II\",\n            \"year\": 1985,\n            \"producer_name\": \"Buzz Feitshans\"\n        },\n        {\n            \"title\": \"Howard the Duck\",\n            \"year\": 1986,\n            \"producer_name\": \"Gloria Katz\"\n        },\n        {\n            \"title\": \"Under the Cherry Moon\",\n            \"year\": 1986,\n            \"producer_name\": \"Steve Fargnoli\"\n        },\n        {\n            \"title\": \"Under the Cherry Moon\",\n            \"year\": 1986,\n            \"producer_name\": \"Bob Cavallo\"\n        },\n        {\n            \"title\": \"Under the Cherry Moon\",\n            \"year\": 1986,\n            \"producer_name\": \"Joe Ruffalo\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Producers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/producers",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"producers"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Producers",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/producers",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"producers"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "391"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"187-bExZ1rjUVT2aJ77QXbOQvyEO8e4\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 31 May 2025 21:52:55 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Producers fetched successfully\",\n    \"count\": 10,\n    \"producers\": [\n        {\n            \"id\": 1,\n            \"name\": \"Allan Carr\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Stanley Donen\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Mike Lobell\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"Sean S. Cunningham\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Jerry Weintraub\"\n        },\n        {\n            \"id\": 6,\n            \"name\": \"William Frye\"\n        },\n        {\n            \"id\": 7,\n            \"name\": \"Joann Carelli\"\n        },\n        {\n            \"id\": 8,\n            \"name\": \"Walter Coblenz\"\n        },\n        {\n            \"id\": 9,\n            \"name\": \"John Derek\"\n        },\n        {\n            \"id\": 10,\n            \"name\": \"Mitsuharu Ishii\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Prize intervals",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/producers/prize-intervals",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"producers",
+						"prize-intervals"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Prize intervals",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/producers/prize-intervals",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"producers",
+								"prize-intervals"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "179"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"b3-1dp3ZOm0SjQJDOH+5WSXU/Rl0r0\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 31 May 2025 21:52:35 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"min\": [\n        {\n            \"producer\": \"Joel Silver\",\n            \"interval\": 1,\n            \"previousWin\": 1990,\n            \"followingWin\": 1991\n        }\n    ],\n    \"max\": [\n        {\n            \"producer\": \"Matthew Vaughn\",\n            \"interval\": 13,\n            \"previousWin\": 2002,\n            \"followingWin\": 2015\n        }\n    ]\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "localhost:3000",
+			"type": "string"
+		}
+	]
+}
