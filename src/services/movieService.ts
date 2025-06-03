@@ -2,6 +2,10 @@ import sqlite3 from "sqlite3";
 import { database } from "../db/database";
 import { ValidatedCsvRow } from "../schemas/csvSchema";
 
+interface ProducerRow {
+  id: number;
+}
+
 export class MovieService {
   private static getDb(): sqlite3.Database {
     return database.getDatabase();
@@ -22,7 +26,7 @@ export class MovieService {
         db.run(
           "INSERT INTO movies (year, title, studios, winner) VALUES (?, ?, ?, ?)",
           [row.year, row.title, row.studios, row.winner ? 1 : 0],
-          function (err) {
+          function (err: Error | null) {
             if (err) {
               console.error("Error inserting movie:", err);
               reject(err);
@@ -83,7 +87,7 @@ export class MovieService {
           db.get(
             "SELECT id FROM producers WHERE name = ?",
             [producerName],
-            (err: any, row: any) => {
+            (err: Error | null, row: ProducerRow) => {
               if (err) {
                 console.error("Error finding producer:", err);
                 reject(err);
@@ -94,7 +98,7 @@ export class MovieService {
               db.run(
                 "INSERT INTO movie_producers (movie_id, producer_id) VALUES (?, ?)",
                 [movieId, row.id],
-                (err: any) => {
+                (err: Error | null) => {
                   if (err) {
                     console.error(
                       "Error inserting movie-producer relation:",

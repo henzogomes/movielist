@@ -23,16 +23,18 @@
 
 import { getHealthCheck, getProducerIntervals } from "../utils/testApiHelpers";
 import { CSV_ORIGINAL } from "../../src/lib/constants";
+import { ProducerIntervalResponse } from "../../src/types/producer.types";
 import {
   validateResponseStructure,
   validateDataFormat,
   validateMinMaxConsistency,
   validateZeroIntervals,
   validateProducerList,
+  validateHealthyResponse,
 } from "../utils/testUtils";
 
 describe("Producer Intervals API Integration Tests", () => {
-  let cachedData: any;
+  let cachedData: ProducerIntervalResponse;
 
   beforeAll(async () => {
     //fetch data once and cache it - using the constant directly
@@ -86,9 +88,7 @@ describe("Producer Intervals API Integration Tests", () => {
   describe("Health Check Integration", () => {
     it("should confirm API is running", async () => {
       const body = await getHealthCheck();
-
-      expect(body).toHaveProperty("message");
-      expect(body.message).toContain("API is healthy");
+      validateHealthyResponse(body);
     });
   });
 });

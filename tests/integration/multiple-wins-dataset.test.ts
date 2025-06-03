@@ -13,16 +13,18 @@
 
 import { getHealthCheck, getProducerIntervals } from "../utils/testApiHelpers";
 import { CSV_MULTIPLE_WINS } from "../../src/lib/constants";
+import { ProducerIntervalResponse } from "../../src/types/producer.types";
 import {
   validateResponseStructure,
   validateDataFormat,
   validateMinMaxConsistency,
   validateZeroIntervals,
   validateProducerList,
+  validateHealthyResponse,
 } from "../utils/testUtils";
 
 describe("Multiple Wins Integration Tests", () => {
-  let cachedData: any;
+  let cachedData: ProducerIntervalResponse;
 
   beforeAll(async () => {
     cachedData = await getProducerIntervals(CSV_MULTIPLE_WINS);
@@ -40,10 +42,9 @@ describe("Multiple Wins Integration Tests", () => {
       const { min } = cachedData;
 
       expect(min[0].interval).toBe(0);
-
       expect(min).toHaveLength(3);
 
-      min.forEach((interval: any) => {
+      min.forEach((interval) => {
         expect(interval.interval).toBe(0);
         expect(interval.previousWin).toBe(interval.followingWin);
         expect(interval.producer).toBeDefined();
@@ -55,7 +56,7 @@ describe("Multiple Wins Integration Tests", () => {
         "temp producer 2",
         "temp producer 3",
       ];
-      const actualMinProducers = min.map((interval: any) => interval.producer);
+      const actualMinProducers = min.map((interval) => interval.producer);
 
       expectedMinProducers.forEach((producer) => {
         expect(actualMinProducers).toContain(producer);
@@ -72,7 +73,7 @@ describe("Multiple Wins Integration Tests", () => {
       expect(maxInterval).toBe(13);
 
       //max intervals should be 13 years
-      max.forEach((interval: any) => {
+      max.forEach((interval) => {
         expect(interval.interval).toBe(13);
         expect(interval.producer).toBeDefined();
         expect(typeof interval.producer).toBe("string");
@@ -86,7 +87,7 @@ describe("Multiple Wins Integration Tests", () => {
         "producer with 13 year interval wins",
       ];
 
-      const actualMaxProducers = max.map((interval: any) => interval.producer);
+      const actualMaxProducers = max.map((interval) => interval.producer);
 
       expectedMaxProducers.forEach((producer) => {
         expect(actualMaxProducers).toContain(producer);
@@ -121,7 +122,7 @@ describe("Multiple Wins Integration Tests", () => {
 
       expectedMinResults.forEach((expectedInterval) => {
         const actualInterval = min.find(
-          (interval: any) => interval.producer === expectedInterval.producer
+          (interval) => interval.producer === expectedInterval.producer
         );
 
         expect(actualInterval).toEqual(expectedInterval);
@@ -150,7 +151,7 @@ describe("Multiple Wins Integration Tests", () => {
 
       expectedMaxResults.forEach((expectedInterval) => {
         const actualInterval = max.find(
-          (interval: any) => interval.producer === expectedInterval.producer
+          (interval) => interval.producer === expectedInterval.producer
         );
 
         expect(actualInterval).toEqual(expectedInterval);
@@ -167,13 +168,13 @@ describe("Multiple Wins Integration Tests", () => {
 
       // min intervals should be 0 for multiple wins dataset
       expect(minInterval).toBe(0);
-      min.forEach((interval: any) => {
+      min.forEach((interval) => {
         expect(interval.interval).toBe(0);
       });
 
       // max intervals should be 13 for this dataset
       expect(maxInterval).toBe(13);
-      max.forEach((interval: any) => {
+      max.forEach((interval) => {
         expect(interval.interval).toBe(13);
       });
 
@@ -187,7 +188,7 @@ describe("Multiple Wins Integration Tests", () => {
       // should have 3 zero intervals (all the min intervals)
       expect(zeroIntervals.length).toBe(3);
 
-      zeroIntervals.forEach((interval: any) => {
+      zeroIntervals.forEach((interval) => {
         expect(interval.interval).toBe(0);
         expect(interval.previousWin).toBe(1980);
         expect(interval.followingWin).toBe(1980);
@@ -217,7 +218,7 @@ describe("Multiple Wins Integration Tests", () => {
 
       expect(min).toHaveLength(3);
 
-      min.forEach((interval: any) => {
+      min.forEach((interval) => {
         expect(interval.interval).toBe(0);
 
         expect(interval.interval).toBe(
@@ -228,7 +229,6 @@ describe("Multiple Wins Integration Tests", () => {
         expect(interval.previousWin).toBe(interval.followingWin);
         expect(interval.previousWin).toBe(1980);
         expect(interval.followingWin).toBe(1980);
-
         expect(interval.producer).toBeDefined();
         expect(typeof interval.producer).toBe("string");
         expect(interval.producer.trim()).not.toBe("");
@@ -239,9 +239,7 @@ describe("Multiple Wins Integration Tests", () => {
   describe("Health Check Integration", () => {
     it("should confirm API is running with multiple wins dataset", async () => {
       const body = await getHealthCheck();
-
-      expect(body).toHaveProperty("message");
-      expect(body.message).toContain("API is healthy");
+      validateHealthyResponse(body);
     });
   });
 });

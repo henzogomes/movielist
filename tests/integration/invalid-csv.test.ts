@@ -4,7 +4,6 @@
  * This test suite verifies that the application properly handles and rejects invalid CSV data
  * during startup/initialization. It tests the CSV validation pipeline and ensures
  * that corrupted or malformed data prevents the app from starting.
- *
  */
 
 import { createApp } from "../../src/createApp";
@@ -18,12 +17,15 @@ describe("Invalid CSV Integration Tests", () => {
         fail(
           "Expected app creation to fail with invalid CSV, but it succeeded"
         );
-      } catch (error: any) {
+      } catch (error) {
         expect(error).toBeDefined();
-        expect(error.message).toBeDefined();
-        expect(error.message).toContain("CSV validation failed");
-        expect(typeof error.message).toBe("string");
-        expect(error.message.length).toBeGreaterThan(0);
+        expect(error).toBeInstanceOf(Error);
+
+        const errorMessage = (error as Error).message;
+        expect(errorMessage).toBeDefined();
+        expect(errorMessage).toContain("CSV validation failed");
+        expect(typeof errorMessage).toBe("string");
+        expect(errorMessage.length).toBeGreaterThan(0);
       }
     });
   });
@@ -33,11 +35,14 @@ describe("Invalid CSV Integration Tests", () => {
       try {
         await createApp(CSV_INVALID);
         fail("Expected app creation to fail with complete error message");
-      } catch (error: any) {
-        expect(error.message).toBeDefined();
-        expect(error.message).toContain("CSV validation failed");
-        expect(error.message).toContain("Found 2 validation errors");
-        expect(error.message).toContain("No data was imported");
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+
+        const errorMessage = (error as Error).message;
+        expect(errorMessage).toBeDefined();
+        expect(errorMessage).toContain("CSV validation failed");
+        expect(errorMessage).toContain("Found 2 validation errors");
+        expect(errorMessage).toContain("No data was imported");
       }
     });
   });
@@ -57,8 +62,9 @@ describe("Invalid CSV Integration Tests", () => {
       try {
         await createApp(CSV_INVALID);
         fail("Expected app creation to fail");
-      } catch (error: any) {
-        expect(error.message).toContain("CSV validation failed");
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+        expect((error as Error).message).toContain("CSV validation failed");
 
         expect(consoleSpy).toHaveBeenCalledWith(
           expect.stringContaining("CSV Validation Report")

@@ -5,6 +5,14 @@ import { csvHeaderSchema, csvRowSchema } from "../schemas/csvSchema";
 import { CsvValidationResult } from "../types/producer.types";
 import { MovieService } from "../services/movieService";
 
+interface CsvRow {
+  year: string;
+  title: string;
+  studios: string;
+  producers: string;
+  winner: string;
+}
+
 export function loadCsvData(filePath?: string): Promise<void> {
   const csvPath = filePath || CSV_ORIGINAL;
 
@@ -24,7 +32,7 @@ export function loadCsvData(filePath?: string): Promise<void> {
     };
 
     let headersValidated = false;
-    const allRows: any[] = [];
+    const allRows: CsvRow[] = [];
 
     console.log(`Loading CSV data from: ${csvPath}`);
 
@@ -46,7 +54,7 @@ export function loadCsvData(filePath?: string): Promise<void> {
         headersValidated = true;
         console.log("CSV headers validated successfully");
       })
-      .on("data", (data: any) => {
+      .on("data", (data: CsvRow) => {
         if (!headersValidated) return;
 
         // get all rows first, dont validate yet
@@ -121,7 +129,7 @@ export function loadCsvData(filePath?: string): Promise<void> {
           reject(error);
         }
       })
-      .on("error", (error) => {
+      .on("error", (error: Error) => {
         console.error("Error reading CSV:", error);
         reject(error);
       });

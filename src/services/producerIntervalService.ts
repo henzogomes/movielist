@@ -26,7 +26,7 @@ export class ProducerIntervalService {
         ORDER BY p.name, m.year
       `;
 
-      db.all(query, (err, rows: ProducerWinData[]) => {
+      db.all(query, (err: Error | null, rows: ProducerWinData[]) => {
         if (err) {
           reject(err);
           return;

@@ -1,12 +1,18 @@
 import { Request, Response } from "express";
 import { database } from "../db/database";
-import { Movie } from "../types/producer.types";
+import { Movie, Producer } from "../types/producer.types";
+
+interface MovieProducerRelationship {
+  title: string;
+  year: number;
+  producer_name: string;
+}
 
 export class HelperController {
   static getMovies(_: Request, res: Response): void {
     const db = database.getDatabase();
 
-    db.all("SELECT * FROM movies", (err, rows: Movie[]) => {
+    db.all("SELECT * FROM movies", (err: Error | null, rows: Movie[]) => {
       if (err) {
         res.status(500).json({
           message: "Error fetching movies",
@@ -25,7 +31,7 @@ export class HelperController {
   static getProducers(_: Request, res: Response): void {
     const db = database.getDatabase();
 
-    db.all("SELECT * FROM producers", (err, rows) => {
+    db.all("SELECT * FROM producers", (err: Error | null, rows: Producer[]) => {
       if (err) {
         res.status(500).json({
           message: "Error fetching producers",
@@ -56,7 +62,7 @@ export class HelperController {
       ORDER BY m.year
     `;
 
-    db.all(query, (err, rows) => {
+    db.all(query, (err: Error | null, rows: MovieProducerRelationship[]) => {
       if (err) {
         res.status(500).json({
           message: "Error fetching movie-producer relationships",

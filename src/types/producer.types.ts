@@ -8,6 +8,11 @@ export interface Movie {
   winner: boolean;
 }
 
+export interface Producer {
+  id: number;
+  name: string;
+}
+
 export interface ProducerInterval {
   producer: string;
   interval: number;

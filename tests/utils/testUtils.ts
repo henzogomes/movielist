@@ -3,7 +3,22 @@
  * These functions can be reused across different test files to avoid code duplication.
  */
 
-export function validateResponseStructure(data: any, expectMinLength = false) {
+import {
+  ProducerInterval,
+  ProducerIntervalResponse,
+} from "../../src/types/producer.types";
+
+interface HealthResponse {
+  message: string;
+  status: string;
+  database: string;
+  currentTime?: string;
+}
+
+export function validateResponseStructure(
+  data: ProducerIntervalResponse,
+  expectMinLength: boolean = false
+): void {
   // response structure
   expect(data).toHaveProperty("min");
   expect(data).toHaveProperty("max");
@@ -15,10 +30,11 @@ export function validateResponseStructure(data: any, expectMinLength = false) {
   }
 }
 
-export function validateDataFormat(data: any) {
+export function validateDataFormat(data: ProducerIntervalResponse): void {
   // data format validation
-  const allIntervals = [...data.min, ...data.max];
-  allIntervals.forEach((interval: any) => {
+  const allIntervals: ProducerInterval[] = [...data.min, ...data.max];
+
+  allIntervals.forEach((interval: ProducerInterval) => {
     // check if properties exist
     expect(interval).toHaveProperty("producer");
     expect(interval).toHaveProperty("interval");
@@ -40,7 +56,9 @@ export function validateDataFormat(data: any) {
   });
 }
 
-export function validateMinMaxConsistency(data: any) {
+export function validateMinMaxConsistency(
+  data: ProducerIntervalResponse
+): void {
   const { min, max } = data;
 
   if (min.length > 0 && max.length > 0) {
@@ -48,12 +66,12 @@ export function validateMinMaxConsistency(data: any) {
     const maxInterval = max[0].interval;
 
     // all min intervals should have the same value
-    min.forEach((interval: any) => {
+    min.forEach((interval: ProducerInterval) => {
       expect(interval.interval).toBe(minInterval);
     });
 
     // all max intervals should have the same value
-    max.forEach((interval: any) => {
+    max.forEach((interval: ProducerInterval) => {
       expect(interval.interval).toBe(maxInterval);
     });
 
@@ -62,15 +80,17 @@ export function validateMinMaxConsistency(data: any) {
   }
 }
 
-export function validateZeroIntervals(data: any) {
+export function validateZeroIntervals(
+  data: ProducerIntervalResponse
+): ProducerInterval[] {
   const { min, max } = data;
-  const allIntervals = [...min, ...max];
+  const allIntervals: ProducerInterval[] = [...min, ...max];
 
-  const zeroIntervals = allIntervals.filter(
-    (interval: any) => interval.interval === 0
+  const zeroIntervals: ProducerInterval[] = allIntervals.filter(
+    (interval: ProducerInterval) => interval.interval === 0
   );
 
-  zeroIntervals.forEach((interval: any) => {
+  zeroIntervals.forEach((interval: ProducerInterval) => {
     expect(interval.previousWin).toBe(interval.followingWin);
     expect(interval.producer).toBeDefined();
     expect(typeof interval.producer).toBe("string");
@@ -79,15 +99,20 @@ export function validateZeroIntervals(data: any) {
   return zeroIntervals;
 }
 
-export function validateProducerList(data: any, expectedProducers?: string[]) {
+export function validateProducerList(
+  data: ProducerIntervalResponse,
+  expectedProducers?: string[]
+): string[] {
   const { min, max } = data;
-  const allIntervals = [...min, ...max];
-  const uniqueProducers = [
-    ...new Set(allIntervals.map((i: any) => i.producer)),
+  const allIntervals: ProducerInterval[] = [...min, ...max];
+  const uniqueProducers: string[] = [
+    ...new Set(
+      allIntervals.map((interval: ProducerInterval) => interval.producer)
+    ),
   ];
 
   // verify each producer appears in the results (they have multiple wins)
-  uniqueProducers.forEach((producer) => {
+  uniqueProducers.forEach((producer: string) => {
     expect(producer).toBeDefined();
     expect(typeof producer).toBe("string");
     expect(producer.length).toBeGreaterThan(0);
@@ -95,10 +120,39 @@ export function validateProducerList(data: any, expectedProducers?: string[]) {
 
   // if specific producers are expected, validate them
   if (expectedProducers) {
-    uniqueProducers.forEach((producer) => {
+    uniqueProducers.forEach((producer: string) => {
       expect(expectedProducers).toContain(producer);
     });
   }
 
   return uniqueProducers;
+}
+
+export function validateHealthResponse(body: HealthResponse): void {
+  expect(body).toHaveProperty("message");
+  expect(body).toHaveProperty("status");
+  expect(body).toHaveProperty("database");
+
+  expect(typeof body.message).toBe("string");
+  expect(typeof body.status).toBe("string");
+  expect(typeof body.database).toBe("string");
+}
+
+export function validateHealthyResponse(body: HealthResponse): void {
+  validateHealthResponse(body);
+
+  expect(body).toHaveProperty("currentTime");
+  expect(body.message).toContain("API is healthy");
+  expect(body.status).toBe("ready");
+  expect(body.database).toBe("SQLite in-memory database connected");
+  expect(typeof body.currentTime).toBe("string");
+}
+
+export function validateNotReadyResponse(body: HealthResponse): void {
+  validateHealthResponse(body);
+
+  expect(body.message).toContain("Database not ready");
+  expect(body.status).toBe("initializing");
+  expect(body.database).toBe("SQLite in-memory database initializing");
+  expect(body).not.toHaveProperty("currentTime");
 }
