@@ -2,11 +2,65 @@
 
 **[🇺🇸 English](#english) | [🇧🇷 Português](#português)**
 
----
+<details>
+<summary><strong>📋 Table of Contents</strong></summary>
+
+### 🇺🇸 English
+
+- [TL;DR](#tldr)
+- [What This API Does](#what-this-api-does)
+- [Quick Start with Docker](#quick-start-with-docker)
+- [API Endpoints](#api-endpoints)
+- [Postman Collection](#postman-collection)
+- [CSV Data Format](#csv-data-format)
+- [Business Logic](#business-logic)
+- [Technical Architecture](#technical-architecture)
+- [Development](#development)
+- [Testing](#testing)
+- [Error Handling](#error-handling)
+- [Health Monitoring](#health-monitoring)
+- [Production Deployment](#production-deployment)
+- [API Response Examples](#api-response-examples)
+- [Troubleshooting](#troubleshooting)
+
+### 🇧🇷 Português
+
+- [TL;DR](#resumo)
+- [O que Esta API Faz](#o-que-esta-api-faz)
+- [Início Rápido com Docker](#início-rápido-com-docker)
+- [Endpoints da API](#endpoints-da-api)
+- [Coleção do Postman](#coleção-do-postman)
+- [Formato dos Dados CSV](#formato-dos-dados-csv)
+- [Lógica de Negócio](#lógica-de-negócio)
+- [Arquitetura Técnica](#arquitetura-técnica)
+- [Desenvolvimento](#desenvolvimento)
+- [Testes](#testes)
+- [Tratamento de Erros](#tratamento-de-erros)
+- [Monitoramento de Saúde](#monitoramento-de-saúde)
+- [Deploy em Produção](#deploy-em-produção)
+- [Exemplos de Resposta da API](#exemplos-de-resposta-da-api)
+- [Solução de Problemas](#solução-de-problemas)
+
+</details>
 
 ## English
 
 A TypeScript REST API that analyzes Golden Raspberry Award data to identify producers with the shortest and longest intervals between consecutive wins.
+
+## TL;DR
+
+**What:** REST API that finds Golden Raspberry Award producers with shortest/longest gaps between wins
+
+**Setup:** `npm run docker:up`
+
+**Test:** `curl http://localhost:3000/api/producers/prize-intervals`
+
+```bash
+# Complete setup in 3 commands
+git clone <repo-url> && cd movielist
+npm run docker:up
+curl http://localhost:3000/api/producers/prize-intervals
+```
 
 ## What This API Does
 
@@ -325,6 +379,21 @@ The collection includes pre-configured requests for:
 ## Português
 
 Uma API REST em TypeScript que analisa dados do Golden Raspberry Award para identificar produtores com os menores e maiores intervalos entre vitórias consecutivas.
+
+## Resumo
+
+**O que é:** API REST que encontra produtores do Golden Raspberry Award com menores/maiores intervalos entre vitórias
+
+**Setup:** `npm run docker:up`
+
+**Teste:** `curl http://localhost:3000/api/producers/prize-intervals`
+
+```bash
+# Setup completo em 3 comandos
+git clone <repo-url> && cd movielist
+npm run docker:up
+curl http://localhost:3000/api/producers/prize-intervals
+```
 
 ## O Que Esta API Faz
 
