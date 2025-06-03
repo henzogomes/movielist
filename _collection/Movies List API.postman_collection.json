@@ -28,10 +28,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/health",
+							"raw": "localhost:3000/health",
 							"host": [
-								"{{url}}"
+								"localhost"
 							],
+							"port": "3000",
 							"path": [
 								"health"
 							]
@@ -55,15 +56,15 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "113"
+							"value": "130"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"71-t5mGDn+N1O5EzINx7zLM9pnmblg\""
+							"value": "W/\"82-r8si66yo5PaLo7xu6sopmSC0cqM\""
 						},
 						{
 							"key": "Date",
-							"value": "Sat, 31 May 2025 21:52:46 GMT"
+							"value": "Tue, 03 Jun 2025 18:36:02 GMT"
 						},
 						{
 							"key": "Connection",
@@ -75,7 +76,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"message\": \"API is healthy\",\n    \"database\": \"SQLite in-memory database connected\",\n    \"currentTime\": \"2025-05-31 21:52:46\"\n}"
+					"body": "{\n    \"message\": \"API is healthy\",\n    \"status\": \"ready\",\n    \"database\": \"SQLite in-memory database connected\",\n    \"currentTime\": \"2025-06-03 18:36:02\"\n}"
 				}
 			]
 		},
@@ -85,12 +86,22 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/movies",
+					"raw": "{{url}}/movies?page=1&limit=5",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"movies"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
 					]
 				}
 			},
@@ -101,12 +112,23 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/movies",
+							"raw": "localhost:3000/movies?page=1&limit=5",
 							"host": [
-								"{{url}}"
+								"localhost"
 							],
+							"port": "3000",
 							"path": [
 								"movies"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
 							]
 						}
 					},
@@ -128,15 +150,15 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "978"
+							"value": "634"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"3d2-R37GAwXLAJAmL8KfRWBZki4bl/Q\""
+							"value": "W/\"27a-XTrB1Eep4FOFokOOZx0RZUrSTOg\""
 						},
 						{
 							"key": "Date",
-							"value": "Sat, 31 May 2025 21:52:49 GMT"
+							"value": "Tue, 03 Jun 2025 18:35:54 GMT"
 						},
 						{
 							"key": "Connection",
@@ -148,7 +170,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"message\": \"Movies fetched successfully\",\n    \"count\": 10,\n    \"movies\": [\n        {\n            \"id\": 1,\n            \"year\": 1980,\n            \"title\": \"Can't Stop the Music\",\n            \"studios\": \"Associated Film Distribution\",\n            \"winner\": 1\n        },\n        {\n            \"id\": 2,\n            \"year\": 1980,\n            \"title\": \"Friday the 13th\",\n            \"studios\": \"Paramount Pictures\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 3,\n            \"year\": 1980,\n            \"title\": \"Cruising\",\n            \"studios\": \"Lorimar Productions, United Artists\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 4,\n            \"year\": 1980,\n            \"title\": \"Raise the Titanic\",\n            \"studios\": \"Associated Film Distribution\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 5,\n            \"year\": 1980,\n            \"title\": \"Saturn 3\",\n            \"studios\": \"Associated Film Distribution\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 6,\n            \"year\": 1980,\n            \"title\": \"Windows\",\n            \"studios\": \"United Artists\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 7,\n            \"year\": 1980,\n            \"title\": \"The Nude Bomb\",\n            \"studios\": \"Universal Studios\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 8,\n            \"year\": 1981,\n            \"title\": \"Mommie Dearest\",\n            \"studios\": \"Paramount Pictures\",\n            \"winner\": 1\n        },\n        {\n            \"id\": 9,\n            \"year\": 1981,\n            \"title\": \"Endless Love\",\n            \"studios\": \"Universal Studios, PolyGram\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 10,\n            \"year\": 1981,\n            \"title\": \"Heaven's Gate\",\n            \"studios\": \"United Artists\",\n            \"winner\": 0\n        }\n    ]\n}"
+					"body": "{\n    \"message\": \"Movies fetched successfully\",\n    \"pagination\": {\n        \"page\": 1,\n        \"limit\": 5,\n        \"totalItems\": 206,\n        \"totalPages\": 42,\n        \"hasNext\": true,\n        \"hasPrev\": false\n    },\n    \"data\": [\n        {\n            \"id\": 1,\n            \"year\": 1980,\n            \"title\": \"Can't Stop the Music\",\n            \"studios\": \"Associated Film Distribution\",\n            \"winner\": 1\n        },\n        {\n            \"id\": 5,\n            \"year\": 1980,\n            \"title\": \"Cruising\",\n            \"studios\": \"Lorimar Productions, United Artists\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 2,\n            \"year\": 1980,\n            \"title\": \"Friday the 13th\",\n            \"studios\": \"Paramount Pictures\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 4,\n            \"year\": 1980,\n            \"title\": \"Raise the Titanic\",\n            \"studios\": \"Associated Film Distribution\",\n            \"winner\": 0\n        },\n        {\n            \"id\": 20,\n            \"year\": 1980,\n            \"title\": \"Saturn 3\",\n            \"studios\": \"Associated Film Distribution\",\n            \"winner\": 0\n        }\n    ]\n}"
 				}
 			]
 		},
@@ -158,12 +180,22 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/movie-producers",
+					"raw": "{{url}}/movie-producers?page=1&limit=10",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"movie-producers"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
 					]
 				}
 			},
@@ -174,10 +206,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/movie-producers",
+							"raw": "localhost:3000/movie-producers",
 							"host": [
-								"{{url}}"
+								"localhost"
 							],
+							"port": "3000",
 							"path": [
 								"movie-producers"
 							]
@@ -222,37 +255,29 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"message\": \"Movie-producer relationships fetched successfully\",\n    \"count\": 10,\n    \"relationships\": [\n        {\n            \"title\": \"Can't Stop the Music\",\n            \"year\": 1980,\n            \"producer_name\": \"Allan Carr\"\n        },\n        {\n            \"title\": \"Mommie Dearest\",\n            \"year\": 1981,\n            \"producer_name\": \"Frank Yablans\"\n        },\n        {\n            \"title\": \"Inchon\",\n            \"year\": 1982,\n            \"producer_name\": \"Mitsuharu Ishii\"\n        },\n        {\n            \"title\": \"The Lonely Lady\",\n            \"year\": 1983,\n            \"producer_name\": \"Robert R. Weston\"\n        },\n        {\n            \"title\": \"Bolero\",\n            \"year\": 1984,\n            \"producer_name\": \"Bo Derek\"\n        },\n        {\n            \"title\": \"Rambo: First Blood Part II\",\n            \"year\": 1985,\n            \"producer_name\": \"Buzz Feitshans\"\n        },\n        {\n            \"title\": \"Howard the Duck\",\n            \"year\": 1986,\n            \"producer_name\": \"Gloria Katz\"\n        },\n        {\n            \"title\": \"Under the Cherry Moon\",\n            \"year\": 1986,\n            \"producer_name\": \"Steve Fargnoli\"\n        },\n        {\n            \"title\": \"Under the Cherry Moon\",\n            \"year\": 1986,\n            \"producer_name\": \"Bob Cavallo\"\n        },\n        {\n            \"title\": \"Under the Cherry Moon\",\n            \"year\": 1986,\n            \"producer_name\": \"Joe Ruffalo\"\n        }\n    ]\n}"
-				}
-			]
-		},
-		{
-			"name": "Producers",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/producers",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"producers"
-					]
-				}
-			},
-			"response": [
+				},
 				{
-					"name": "Producers",
+					"name": "Movie Producers",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/producers",
+							"raw": "{{url}}/movie-producers?page=1&limit=10",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"producers"
+								"movie-producers"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
 							]
 						}
 					},
@@ -274,15 +299,15 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "391"
+							"value": "898"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"187-bExZ1rjUVT2aJ77QXbOQvyEO8e4\""
+							"value": "W/\"382-isAGkwKxBVZ2OsPR1AnfllBNKVg\""
 						},
 						{
 							"key": "Date",
-							"value": "Sat, 31 May 2025 21:52:55 GMT"
+							"value": "Tue, 03 Jun 2025 18:35:36 GMT"
 						},
 						{
 							"key": "Connection",
@@ -294,7 +319,101 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"message\": \"Producers fetched successfully\",\n    \"count\": 10,\n    \"producers\": [\n        {\n            \"id\": 1,\n            \"name\": \"Allan Carr\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Stanley Donen\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Mike Lobell\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"Sean S. Cunningham\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Jerry Weintraub\"\n        },\n        {\n            \"id\": 6,\n            \"name\": \"William Frye\"\n        },\n        {\n            \"id\": 7,\n            \"name\": \"Joann Carelli\"\n        },\n        {\n            \"id\": 8,\n            \"name\": \"Walter Coblenz\"\n        },\n        {\n            \"id\": 9,\n            \"name\": \"John Derek\"\n        },\n        {\n            \"id\": 10,\n            \"name\": \"Mitsuharu Ishii\"\n        }\n    ]\n}"
+					"body": "{\n    \"message\": \"Movie-producer relationships fetched successfully\",\n    \"pagination\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"totalItems\": 98,\n        \"totalPages\": 10,\n        \"hasNext\": true,\n        \"hasPrev\": false\n    },\n    \"data\": [\n        {\n            \"title\": \"Can't Stop the Music\",\n            \"year\": 1980,\n            \"producer_name\": \"Allan Carr\"\n        },\n        {\n            \"title\": \"Mommie Dearest\",\n            \"year\": 1981,\n            \"producer_name\": \"Frank Yablans\"\n        },\n        {\n            \"title\": \"Inchon\",\n            \"year\": 1982,\n            \"producer_name\": \"Mitsuharu Ishii\"\n        },\n        {\n            \"title\": \"The Lonely Lady\",\n            \"year\": 1983,\n            \"producer_name\": \"Robert R. Weston\"\n        },\n        {\n            \"title\": \"Bolero\",\n            \"year\": 1984,\n            \"producer_name\": \"Bo Derek\"\n        },\n        {\n            \"title\": \"Rambo: First Blood Part II\",\n            \"year\": 1985,\n            \"producer_name\": \"Buzz Feitshans\"\n        },\n        {\n            \"title\": \"Howard the Duck\",\n            \"year\": 1986,\n            \"producer_name\": \"Gloria Katz\"\n        },\n        {\n            \"title\": \"Under the Cherry Moon\",\n            \"year\": 1986,\n            \"producer_name\": \"Bob Cavallo\"\n        },\n        {\n            \"title\": \"Under the Cherry Moon\",\n            \"year\": 1986,\n            \"producer_name\": \"Joe Ruffalo\"\n        },\n        {\n            \"title\": \"Under the Cherry Moon\",\n            \"year\": 1986,\n            \"producer_name\": \"Steve Fargnoli\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Producers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/producers?page=1&limit=10",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"producers"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Producers",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/producers?page=1&limit=10",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"producers"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "481"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1e1-+cYq28DWAJ/Q5uEEqYmm1QmhdhU\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 03 Jun 2025 18:35:57 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Producers fetched successfully\",\n    \"pagination\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"totalItems\": 359,\n        \"totalPages\": 36,\n        \"hasNext\": true,\n        \"hasPrev\": false\n    },\n    \"data\": [\n        {\n            \"id\": 98,\n            \"name\": \"A. Kitman Ho\"\n        },\n        {\n            \"id\": 267,\n            \"name\": \"Aaron Seltzer\"\n        },\n        {\n            \"id\": 431,\n            \"name\": \"Adam McKay\"\n        },\n        {\n            \"id\": 225,\n            \"name\": \"Adam Sandler\"\n        },\n        {\n            \"id\": 338,\n            \"name\": \"Alain Chabat\"\n        },\n        {\n            \"id\": 90,\n            \"name\": \"Alan Marshall\"\n        },\n        {\n            \"id\": 97,\n            \"name\": \"Alan Zweibel\"\n        },\n        {\n            \"id\": 16,\n            \"name\": \"Albert S. Ruddy\"\n        },\n        {\n            \"id\": 422,\n            \"name\": \"Alex Kurtzman\"\n        },\n        {\n            \"id\": 404,\n            \"name\": \"Alex Proyas\"\n        }\n    ]\n}"
 				}
 			]
 		},
@@ -322,10 +441,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/producers/prize-intervals",
+							"raw": "localhost:3000/api/producers/prize-intervals",
 							"host": [
-								"{{url}}"
+								"localhost"
 							],
+							"port": "3000",
 							"path": [
 								"api",
 								"producers",
